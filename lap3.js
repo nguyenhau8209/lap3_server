@@ -6,7 +6,13 @@ http.createServer(function (req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
       var oldpath = files.filetoupload.filepath;
-      var newpath = 'C:/Users/congh/AppData/Local' + files.filetoupload.originalFilename;
+      let time = new Date().getTime();
+      let fileName = files.filetoupload.originalFilename.toString();
+
+      names = fileName.split('.');
+      newFileName = names[0] + time + "." + names[1];
+      console.log(newFileName);
+      var newpath = 'C:/Users/congh/AppData/Local' + newFileName;
       console.log(oldpath);
       console.log(newpath + "new path");
       fs.rename(oldpath, newpath, function (err) {
